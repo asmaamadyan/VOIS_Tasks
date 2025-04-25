@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Spaghetti Bolognese",
+    "description": "Classic Italian pasta with rich meat sauce.",
+    "price": 12.99,
+    "image": "/assets/spaghetti-bolognese.jpeg"
+  },
+  {
+    "id": 2,
+    "name": "Chicken Tikka Masala",
+    "description": "Creamy Indian curry with grilled chicken pieces.",
+    "price": 14.49,
+    "image": "/assets/chicken-tikka-masala.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Grilled Salmon",
+    "description": "Fresh salmon fillet served with steamed vegetables.",
+    "price": 16.99,
+    "image": "/assets/grilled-salmon.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Veggie Burger",
+    "description": "Plant-based burger with lettuce, tomato, and onion.",
+    "price": 9.99,
+    "image": "/assets/veggie-burger.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Beef Tacos",
+    "description": "Three soft-shell tacos with seasoned beef and toppings.",
+    "price": 11.25,
+    "image": "/assets/beef-tacos.jpg"
+  }
+]
