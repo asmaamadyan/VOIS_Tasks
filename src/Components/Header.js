@@ -1,4 +1,4 @@
-import { use, useContext, useRef } from "react";
+import { use, useContext, useRef, useState } from "react";
 import { CartContext } from "../store/cart-context";
 import CartModal from "./CartModal";
 
@@ -6,25 +6,34 @@ function Home() {
   const { items } = useContext(CartContext);
   const cartQuantity = items.length;
   const modal = useRef();
+  const [checkout,setCheckout] = useState(false)
 
   function handleOpenCart() {
     modal.current.showModal();
     console.log('items',items);
     
   }
-  let modalActions = <button>Close</button>;
+  function handleCheckout(){
+    setCheckout(true);
+  }
+ function handleClose(){
+  modal.current.close()
+  setCheckout(false)
+ }
+ 
+  let modalActions = <button onClick={handleClose}>Close</button>;
   if (cartQuantity > 0) {
     modalActions = (
       <>
-        <button onClick={()=>modal.current.close()}>Close</button>
-        <button>Checkout</button>
+        <button onClick={handleClose}>Close</button>
+        <button onClick={handleCheckout}>{checkout ? 'Submit' : 'Checkout'}</button>
       </>
     );
   }
 
   return (
     <>
-      <CartModal ref={modal} actions={modalActions} />
+      <CartModal ref={modal} actions={modalActions} checkout={checkout} />
       <header id="main-header">
         <div id="main-title">
           <img src="logo.png" alt="Food App" />
