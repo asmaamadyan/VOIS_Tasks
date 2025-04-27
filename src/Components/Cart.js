@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "../store/cart-context";
 import { RiDeleteBinLine } from "react-icons/ri";
 
-function Cart() {
+function Cart({submitted}) {
   const { items, updateItemQuantity, removeItemFromCart } =
     useContext(CartContext);
     const totalPrice = items.reduce(
@@ -13,7 +13,7 @@ function Cart() {
 
   return (
     <div id="cart">
-      {items.length === 0 && <p>Your Cart is empty !</p>}
+      {items.length === 0 && <p>{submitted ? 'Your Order has been Created !' :'Your Cart is empty !'}</p>}
       {items.length > 0 && (
         <ul id="cart-items">
           {items.map((item) => {

@@ -61,12 +61,14 @@ function cartReducer(state , action){
           items: updatedItems,
         };
       }
-            // if (action.type ==='REMOVE_ITEM'){
-            //     return {
-            //         ...state,
-            //         items: state.items.filter(item => item.id !== action.payload.id)
-            //     };
-            // }
+            if (action.type ==='CLEAR_CART'){
+
+                return {
+                    ...state,
+                    items: [],
+                    quantity :0
+                };
+            }
             return state;
     
         }
@@ -91,19 +93,16 @@ export default function CartContextProvider({children}){
             }
         })
     }
-    function handleRemoveItemFromCart(productId){
-        cartDispatch({
-            type: 'REMOVE_ITEM',
-            payload:{
-                productId :productId
-            }
-        })
+    function clearCart(){
+      cartDispatch({
+        type : 'CLEAR_CART'
+      })
     }
     const ctxValue ={
         items : cartState.items,
         addItemToCart :handleAddToCart,
         updateItemQuantity :handleUpdateItemQuantity,
-        removeItemFromCart :handleRemoveItemFromCart
+        clearCart : clearCart
     }
     return (
         <CartContext.Provider value={ctxValue}>

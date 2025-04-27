@@ -1,4 +1,4 @@
-import { use, useContext, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { CartContext } from "../store/cart-context";
 import CartModal from "./CartModal";
 
@@ -33,7 +33,7 @@ function Home() {
 
   return (
     <>
-      <CartModal ref={modal} actions={modalActions} checkout={checkout} />
+      <CartModal ref={modal} actions={modalActions} checkout={checkout} close={handleClose} />
       <header id="main-header">
         <div id="main-title">
           <img src="logo.png" alt="Food App" />
