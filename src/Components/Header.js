@@ -16,11 +16,12 @@ function Home() {
   if (cartQuantity > 0) {
     modalActions = (
       <>
-        <button>Close</button>
+        <button onClick={()=>modal.current.close()}>Close</button>
         <button>Checkout</button>
       </>
     );
   }
+
   return (
     <>
       <CartModal ref={modal} actions={modalActions} />

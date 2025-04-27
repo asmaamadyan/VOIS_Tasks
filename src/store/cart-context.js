@@ -38,7 +38,7 @@ function cartReducer(state , action){
           items: updatedItems,
         };
       }
-      if (action.type ==='UPDATE_ITEM'){
+      if (action.type ==='UPDATE_QUANTITY'){
         const updatedItems = [...state.items];
         const updatedItemIndex = updatedItems.findIndex(
           (item) => item.id === action.payload.productId
