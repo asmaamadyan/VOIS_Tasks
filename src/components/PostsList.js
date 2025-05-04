@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../firebase/api";
+import { postsAction } from "../store/posts"; 
+import Post from "./post";
 
 function PostsList() {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
+  const{posts,setPosts}=useSelector(state=>state.posts)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = fetchPosts(setPosts);
-    console.log(posts);
-    
-    
+    const unsubscribe = fetchPosts((fetchedPosts) => {
+      postsAction.setPosts(fetchedPosts);
+      dispatch(postsAction.setPosts(fetchedPosts));
+      console.log('posts',posts);
+      
+    });
+
     return () => {
       if (unsubscribe) unsubscribe();
     };
-  }, []);
+  }, [dispatch]);
 
   return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id}>
-          <strong>{post.user?.email || 'Anonymous'}</strong>: {post.content}
-        </li>
-      ))}
-    </ul>
+   <Post posts={posts} />
   );
 }
 

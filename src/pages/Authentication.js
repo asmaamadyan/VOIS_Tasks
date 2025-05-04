@@ -66,7 +66,11 @@ export async function action({ params, request }) {
       );
       console.log(response);
       const token = response.user.accessToken;
+      const userName = response.user.displayName
+      const userUid = response.user.uid
       localStorage.setItem("token", token);
+      localStorage.setItem('userName',userName)
+      localStorage.setItem('userUid',userUid)
       return redirect("/dashboard");
     } catch (error) {
       if (error.code === 'auth/user-not-found') {

@@ -1,31 +1,30 @@
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import PageContent from "../components/PageContent";
 import { useSelector } from "react-redux";
+import Post from "../components/post";
 
 function DashboardPage() {
   const auth = getAuth();
   const user = auth.currentUser;
-  const displayName = user.displayName;
+  const displayName = localStorage.getItem("userName");
   const title = `Welcome ${displayName}`;
-  console.log('displayName',displayName);
+
+  const posts = useSelector((state) => state.posts.posts || []);
+  console.log('dapos',posts);
   
-  const { posts } = useSelector((state) => state.posts);
-  // const posts = user.posts
-  
-  const userPosts = posts.filter((post)=>post.user.uid ==user.uid)
-  console.log(userPosts);
-  
+
+  const userPosts = posts.filter(
+    (post) => post.user?.uid === user.uid
+  );
 
   return (
     <PageContent title={title}>
       <p>Your Posts</p>
-      <ul>
-        {userPosts.map((post) => (
-          <li key={post.user.uid}>
-            <strong>{post.user.email}</strong>: {post.content}
-          </li>
-        ))}
-      </ul>
+      {userPosts.length > 0 ? (
+        <Post posts={userPosts} />
+      ) : (
+        <p>You have not posted anything yet.</p>
+      )}
     </PageContent>
   );
 }

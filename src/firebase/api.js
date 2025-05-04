@@ -21,6 +21,7 @@ export const fetchPosts = (setPosts) => {
       ...doc.data()
     }));
     setPosts(posts);
+    return posts
   }, (error) => {
     console.error("Firestore fetch error:", error.message);
   });

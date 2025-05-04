@@ -10,10 +10,10 @@ const postsSlice = createSlice({
   },
   reducers: {
     setPosts(state, action) {
-      state.posts = action.payload; // directly set array
+      state.posts = action.payload; 
     },
     addPost(state, action) {
-      state.posts.unshift(action.payload); // works now
+      state.posts.unshift(action.payload); 
     },
     deletePost(state, action) {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
