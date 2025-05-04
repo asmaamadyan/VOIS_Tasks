@@ -1,25 +1,19 @@
+// store/posts.js
 import { createSlice } from "@reduxjs/toolkit";
-import { Timestamp } from "firebase/firestore";
 
 const postsSlice = createSlice({
   name: "posts",
   initialState: {
-    posts: [
-      {
-        content: "This is my first post",
-        user: { uid: "user1", email: "user@example.com" },
-        createdAt: Timestamp.now(),
-      },
-    ],
+    posts: [], // should be an array
     loading: false,
     error: null,
   },
   reducers: {
     setPosts(state, action) {
-      state.posts = { ...state, action };
+      state.posts = action.payload; // directly set array
     },
     addPost(state, action) {
-      state.posts.unshift(action.payload);
+      state.posts.unshift(action.payload); // works now
     },
     deletePost(state, action) {
       state.posts = state.posts.filter((post) => post.id !== action.payload);

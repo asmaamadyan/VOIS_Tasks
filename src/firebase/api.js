@@ -1,33 +1,65 @@
 import {
   collection,
-  getDocs,
   addDoc,
   deleteDoc,
   doc,
-  serverTimestamp,
   query,
   orderBy,
+  Timestamp,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import { getAuth } from "firebase/auth";
 
-const postsRef = collection(db, "posts");
 
-export const fetchAllPosts = async () => {
-  const q = query(postsRef, orderBy("createdAt", "desc"));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+export const fetchPosts = (setPosts) => {
+  const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const posts = snapshot.docs.map(doc => ({
+      // id: doc.id,
+      ...doc.data()
+    }));
+    setPosts(posts);
+  }, (error) => {
+    console.error("Firestore fetch error:", error.message);
+  });
+
+  return unsubscribe;
 };
 
-export const addPost = async (userId, content) => {
+export const createPost = async (content) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (!user) {
+    console.error("User not logged in");
+    return null;
+  }
+
   try {
-    await addDoc(collection(db, "posts"), {
-      userId,
+    const docRef = await addDoc(collection(db, "posts"), {
       content,
+      user: {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || "",
+      },
       createdAt: Timestamp.now(),
     });
-    console.log("post added");
-  } catch (err) {
-    console.error("Error adding post:", err.message);
+    return {
+      id: docRef.id,
+      content,
+      user: {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || "",
+      },
+      createdAt: new Date()
+    };
+  } catch (error) {
+    console.error("Error adding post:", error.message);
+    return null;
   }
 };
 

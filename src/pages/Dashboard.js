@@ -11,6 +11,7 @@ function DashboardPage() {
   
   const { posts } = useSelector((state) => state.posts);
   // const posts = user.posts
+  
   const userPosts = posts.filter((post)=>post.user.uid ==user.uid)
   console.log(userPosts);
   
