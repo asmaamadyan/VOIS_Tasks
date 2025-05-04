@@ -1,13 +1,30 @@
-import {  NavLink } from "react-router-dom";
+import { Form, NavLink, useRouteLoaderData } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../store/auth";
+import { useEffect } from "react";
 
 function MainNavigation() {
+  const token = useRouteLoaderData("root");
+  const dispatch = useDispatch();
+  const login = useSelector(state=>state.auth.isAuthenticated)
+  console.log('auth?',login);
+  useEffect(()=>{
+
+    if(token){
+      dispatch(authActions.login())
+    }
+  },[token])
+  function handleLogout(){
+    dispatch(authActions.logout())
+  }
+  console.log('auth?',login);
   return (
     <header className={classes.header}>
       <nav>
         <ul className={classes.list}>
-        <li>
+        {!token &&  <li>
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -17,39 +34,65 @@ function MainNavigation() {
             >
               Home
             </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/auth?mode=login"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-              end
-            >
-              Auth
-            </NavLink>
-          </li>
-          {/* <li>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              dashboard
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/posts"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              posts
-            </NavLink>
-          </li>
-        */}
+          </li>}
+          {!token && (
+            <li>
+              <NavLink
+                to="/auth?mode=login"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+                end
+              >
+                Auth
+              </NavLink>
+            </li>
+          )}
+          {token && (
+            <li>
+              <NavLink
+                to="dashboard"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+                end
+              >
+                Dashboard
+              </NavLink>
+            </li>
+          )}
+          {token && (
+            <li>
+              <NavLink
+                to="posts"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+                end
+              >
+                All posts
+              </NavLink>
+            </li>
+          )}
+          {token && (
+            <li>
+              <NavLink
+                to="newpost"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+              >
+                New post
+              </NavLink>
+            </li>
+          )}
+          {token && (
+            <li>
+              <Form action="/logout" method="post">
+                <button onClick={handleLogout}>Logout</button>
+              </Form>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

@@ -5,31 +5,46 @@ import Authentication from "./pages/Authentication";
 import DashboardPage from "./pages/Dashboard";
 import PostsPage from "./pages/Posts";
 import NewPostPage from "./pages/NewPost";
-import DashboardLayout from "./pages/DashboardLayout";
 import HomePage from "./pages/Home";
 import { action as authAction } from "./pages/Authentication";
+import { loader as tokenLoader, checkAuthLoader } from "./util/auth";
+import { action as logoutAction } from "./pages/Logout";
+import ErrorPage from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement : <ErrorPage />,
+    loader: tokenLoader,
+    id: "root",
     children: [
       { index: true, element: <HomePage /> },
       {
         path: "auth",
         element: <Authentication />,
+
         action: authAction,
-        children: [
-          { path: "dashboard", element: <DashboardPage /> },
-          {
-            path: "dashboardlayout",
-            element: <DashboardLayout />,
-            children: [
-              { path: "posts", element: <PostsPage /> },
-              { path: "newpost", element: <NewPostPage /> },
-            ],
-          },
-        ],
+      },
+
+      {
+        path: "dashboard",
+        element: <DashboardPage />,
+        // loader: checkAuthLoader,
+      },
+      {
+        path: "posts",
+        element: <PostsPage />,
+        // loader: checkAuthLoader,
+      },
+      {
+        path: "newpost",
+        element: <NewPostPage />,
+        // loader: checkAuthLoader,
+      },
+      {
+        path: "logout",
+        action: logoutAction,
       },
     ],
   },
