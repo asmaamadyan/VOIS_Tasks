@@ -30,17 +30,17 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <DashboardPage />,
-        // loader: checkAuthLoader,
+        loader: checkAuthLoader,
       },
       {
         path: "posts",
         element: <PostsPage />,
-        // loader: checkAuthLoader,
+        loader: checkAuthLoader,
       },
       {
         path: "newpost",
         element: <NewPostPage />,
-        // loader: checkAuthLoader,
+        loader: checkAuthLoader,
       },
       {
         path: "logout",
