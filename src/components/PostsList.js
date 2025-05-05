@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../firebase/api";
 import { postsAction } from "../store/posts"; 
 import Post from "./post";
+import { getAuth } from "firebase/auth";
 
 function PostsList() {
   const{posts}=useSelector(state=>state.posts)
   const dispatch = useDispatch();
+  const auth=getAuth();
+  const user = auth.currentUser
 
   useEffect(() => {
     const unsubscribe = fetchPosts((fetchedPosts) => {
@@ -22,7 +25,7 @@ function PostsList() {
   }, [dispatch,fetchPosts]);
 
   return (
-   <Post posts={posts} />
+   <Post posts={posts} currentUserUid={user.uid}/>
   );
 }
 

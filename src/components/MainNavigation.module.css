@@ -20,4 +20,11 @@
   .list a.active {
     color: var(--color-primary-800);
   }
-  
+  .list button{
+
+      margin-right: 5px;
+      background-color: var(--color-primary-800);
+      color: var(--color-primary-100);
+      padding-inline: 10px;
+    
+  }

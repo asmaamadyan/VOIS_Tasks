@@ -7,6 +7,7 @@ import {
   orderBy,
   Timestamp,
   onSnapshot,
+  updateDoc,
 } from "firebase/firestore";
 import { db, storage } from "../firebase/firebase";
 import { getAuth } from "firebase/auth";
@@ -130,3 +131,15 @@ export const createPost = async (content, imageFile) => {
 export const deletePostById = async (id) => {
   await deleteDoc(doc(db, "posts", id));
 };
+export const editPost =async(postId,updatedContent)=>{
+  try{
+    const postRef=doc(db,'posts',postId);
+    await updateDoc(postRef ,{
+      content : updatedContent
+    });
+    return true;
+  }catch(error){
+    console.error("Error editing post:", error.message);
+    return false;
+  }
+}

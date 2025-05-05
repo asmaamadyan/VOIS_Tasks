@@ -29,7 +29,7 @@ function DashboardPage() {
     <PageContent title={title}>
       <p>Your Posts</p>
       {userPosts.length > 0 ? (
-        <Post posts={userPosts} />
+        <Post posts={userPosts} currentUserUid={user.uid} />
       ) : (
         <p>You have not posted anything yet.</p>
       )}

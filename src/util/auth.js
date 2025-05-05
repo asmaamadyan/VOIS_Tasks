@@ -14,6 +14,8 @@ export function getAuthToken() {
     return;
   }
   if (tokenDuration < 0) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('expiration')
     return "EXPIRED";
   }
   return token;

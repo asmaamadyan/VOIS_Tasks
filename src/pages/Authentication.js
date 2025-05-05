@@ -40,7 +40,6 @@ export async function action({ params, request }) {
         authData.password
       );
       const user = userCredential.user;
-      const userId = user.uid;
       const fullName = `${authData.firstName} ${authData.lastName}`;
       await updateProfile(user, {
         displayName: fullName,
@@ -48,6 +47,8 @@ export async function action({ params, request }) {
 
       const token = await user.getIdToken();
       localStorage.setItem("token", token);
+      console.log('logged in');
+      
       return redirect("/dashboard");
     } catch (error) {
       const errorCode = error.code;
