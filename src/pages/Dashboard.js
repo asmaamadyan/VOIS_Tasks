@@ -7,19 +7,20 @@ import { fetchPosts } from "../firebase/api";
 import { postsAction } from "../store/posts";
 import placeholderAvatar from "../assets/placeholder-avatar.png"; // Import the placeholder avatar
 import "./Dashboard.css"; // Import the CSS file for styling
+import { useNavigate, useNavigation } from "react-router-dom";
+import { FaPen } from "react-icons/fa";
 
 function DashboardPage() {
   const auth = getAuth();
   const user = auth.currentUser;
   const displayName = user?.displayName || "User";
   const title = `Welcome ${displayName}`;
-  const email = user?.email || ''
+  const email = user?.email || "";
   const dispatch = useDispatch();
-  console.log('email',email);
-  
+const navigate = useNavigate()
+
 
   const posts = useSelector((state) => state.posts.posts || []);
-  console.log("dapos", posts);
 
   useEffect(() => {
     fetchPosts((fetchedPosts) => {
@@ -27,6 +28,9 @@ function DashboardPage() {
     });
   }, [dispatch]);
   const userPosts = posts.filter((post) => post.user?.uid === user.uid);
+  function handleAddPost(){
+    navigate('/newpost')
+  }
 
   return (
     <PageContent title={title}>
@@ -39,11 +43,15 @@ function DashboardPage() {
           />
           <div className="user-details">
             <p className="user-name">{displayName}</p>
-            <p className="user-email">{email || "Email not available"}</p> {/* Ensure email is displayed */}
+            <p className="user-email">{email || "Email not available"}</p>{" "}
+            {/* Ensure email is displayed */}
           </div>
         </div>
         <div className="posts-section">
           <h2 style={{ textAlign: "center" }}>Your Posts</h2>
+          <button className="add-post-button" onClick={handleAddPost}>
+            <FaPen className="write-icon" />
+          </button>
           {userPosts.length > 0 ? (
             <div className="posts-grid">
               <Post posts={userPosts} currentUserUid={user.uid} />

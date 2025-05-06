@@ -45,6 +45,7 @@
         flex-direction: column;
         gap: 1.5rem;
         width: 90%;
+        margin-top: 3rem;
     }
     .user-details {
         display: flex;
@@ -70,6 +71,7 @@
     border: 1px solid #d6b3e8; 
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 3.5rem;
   }
   .pagination {
     display: flex;
@@ -96,4 +98,33 @@
     background-color: #6a4c93; /* Deep mauve active */
     color: white;
     font-weight: bold;
+  }
+  .add-post-button {
+    display: flex;
+    float: inline-end;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #6a4c93; /* Deep mauve background */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+  }
+  
+  .add-post-button:hover {
+    background-color: #5a3d7e; 
+    transform: scale(1.1); 
+  }
+  
+  .add-post-button:active {
+    transform: scale(0.95); 
+  }
+  
+  .write-icon {
+    font-size: 1.5rem; 
   }
