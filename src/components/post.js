@@ -1,21 +1,25 @@
 import { useState } from "react";
 import { deletePostById, editPost } from "../firebase/api";
 import classes from "./post.module.css";
+
 function Post({ posts, currentUserUid }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [editingPostId, setEditingPostId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
+
   function handleDelete(postId) {
     if (window.confirm("Are you sure you want to delete this post?")) {
       deletePostById(postId);
       console.log("post deleted", postId);
     }
   }
+
   const startEdit = (post) => {
     setEditingPostId(post.id);
     setEditedContent(post.content);
     setOpenMenuId(null);
   };
+
   const handleEditSubmit = async (id) => {
     if (!editedContent.trim()) return;
 
@@ -25,15 +29,17 @@ function Post({ posts, currentUserUid }) {
       setEditedContent("");
     }
   };
+
   const toggleMenu = (postId) => {
     setOpenMenuId((prevId) => (prevId === postId ? null : postId));
-  };  
+  };
+
   return (
     <div className={classes.container}>
       {posts.map((post) => (
-        <div className={classes.box} key={post.id}>
+        <div className={classes.postCard} key={post.id}>
           <div className={classes.header}>
-            <strong>
+            <strong className={classes.author}>
               {post.user?.displayName || post.user?.email || "Anonymous"}
             </strong>
             {post.user?.uid === currentUserUid && (
@@ -59,9 +65,22 @@ function Post({ posts, currentUserUid }) {
               <textarea
                 value={editedContent}
                 onChange={(e) => setEditedContent(e.target.value)}
+                className={classes.textarea}
               />
-              <button onClick={() => handleEditSubmit(post.id)}>Save</button>
-              <button onClick={() => setEditingPostId(null)}>Cancel</button>
+              <div className={classes.editButtons}>
+                <button
+                  className={classes.saveButton}
+                  onClick={() => handleEditSubmit(post.id)}
+                >
+                  Save
+                </button>
+                <button
+                  className={classes.cancelButton}
+                  onClick={() => setEditingPostId(null)}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           ) : (
             <div className={classes.content}>{post.content}</div>

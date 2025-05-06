@@ -4,11 +4,13 @@ import { createPost } from "../firebase/api";
 import { useDispatch, useSelector } from "react-redux";
 import { postsAction } from "../store/posts";
 import { getAuth } from "firebase/auth";
+import classes from "./NewPost.module.css"; 
 
 function NewPost() {
   const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ function NewPost() {
     e.preventDefault();
     if (!content.trim() || !user) return;
     setLoading(true);
+    setSuccessMessage("");
     try {
       const newPost = await createPost(content, imageFile);
       console.log(newPost);
@@ -27,49 +30,40 @@ function NewPost() {
       if (newPost) {
         dispatch(postsAction.addPost(newPost));
         console.log("posts", posts);
-        setContent("");
-        setImageFile(null);
+        setSuccessMessage("Post uploaded successfully!");
       }
     } catch (error) {
       console.error("Error creating post:", error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className={classes.formContainer}>
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="What's on your mind?"
         rows={4}
-        style={{
-          width: "100%",
-          padding: "8px",
-          marginBottom: "10px",
-          color: "#2a2633",
-          backgroundColor: "#d2b5e2",
-        }}
+        className={classes.textarea}
       />
       <input
         type="file"
         accept="image/*"
         onChange={(e) => setImageFile(e.target.files[0])}
-        style={{ marginBottom: "10px" }}
+        className={classes.fileInput}
       />
       <button
         type="submit"
         disabled={loading}
-        style={{
-          marginRight: "5px",
-          backgroundColor: "#a872bd",
-          color: "#2a2633",
-          paddingInline: '10px',
-        }}
+        className={classes.submitButton}
       >
         {loading ? "Posting..." : "Post"}
       </button>
+      {successMessage && (
+        <p className={classes.successMessage}>{successMessage}</p>
+      )}
     </Form>
   );
 }

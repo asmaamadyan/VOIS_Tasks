@@ -9,9 +9,8 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { db, storage } from "../firebase/firebase";
+import { db } from "../firebase/firebase";
 import { getAuth } from "firebase/auth";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const fetchPosts = (callback) => {
   const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
@@ -25,7 +24,7 @@ export const fetchPosts = (callback) => {
       return {
         id: doc.id,
         ...data,
-        createdAt: createdAt|| null, // convert to number (timestamp in ms)
+        createdAt: createdAt|| null, 
       };
     });
 
@@ -35,7 +34,6 @@ export const fetchPosts = (callback) => {
   return unsubscribe;
 };
 
-// export const createPost = async (content, user, imageFile = null) => {
 //   if (!user) {
 //     console.error("User not logged in");
 //     return null;
@@ -97,12 +95,24 @@ export const createPost = async (content, imageFile) => {
   try {
     const createdAt = Timestamp.now();
     if (imageFile) {
-      const storageRef = ref(
-        storage,
-        `posts/${user.uid}/${Date.now()}_${imageFile.name}`
+      const formData = new FormData();
+      formData.append("file", imageFile);
+      formData.append("upload_preset", "authenticated-blog-dashboard"); // Replace with your Cloudinary unsigned preset
+      formData.append("folder", "posts"); // Optional: Specify a folder in Cloudinary
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/dh5f5sp1y/image/upload`, 
+        {
+          method: "POST",
+          body: formData,
+        }
       );
-      const snapshot = await uploadBytes(storageRef, imageFile);
-      imageUrl = await getDownloadURL(snapshot.ref);
+
+      if (!response.ok) {
+        throw new Error("Failed to upload image to Cloudinary");
+      }
+      const data = await response.json();
+      imageUrl = data.secure_url; 
     }
 
     const newPost = {
