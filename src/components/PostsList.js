@@ -26,7 +26,7 @@ function PostsList() {
     return () => {
       if (unsubscribe) unsubscribe();
     };
-  }, [dispatch]);
+  }, [dispatch,posts]);
   const indexOfLastPost = currentPage*postsPerPage;
   const indexOfFirstPost = indexOfLastPost-postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost,indexOfLastPost);

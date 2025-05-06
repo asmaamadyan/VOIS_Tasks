@@ -15,7 +15,7 @@ function MainNavigation() {
     if(token){
       dispatch(authActions.login())
     }
-  },[token])
+  },[token,dispatch])
   function handleLogout(){
     dispatch(authActions.logout())
   }

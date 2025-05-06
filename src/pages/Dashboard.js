@@ -7,7 +7,7 @@ import { fetchPosts } from "../firebase/api";
 import { postsAction } from "../store/posts";
 import placeholderAvatar from "../assets/placeholder-avatar.png"; // Import the placeholder avatar
 import "./Dashboard.css"; // Import the CSS file for styling
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaPen } from "react-icons/fa";
 
 function DashboardPage() {

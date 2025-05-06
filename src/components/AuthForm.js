@@ -1,9 +1,7 @@
 
-import { Form, Link, useActionData, useRouteLoaderData, useSearchParams } from "react-router-dom";
+import { Form, Link, useActionData, useSearchParams } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../store/auth";
 
 function AuthForm() {
 
