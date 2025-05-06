@@ -51,10 +51,12 @@ export async function action({ params, request }) {
       
       return redirect("/dashboard");
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error("Error creating user:", errorCode, errorMessage);
-      throw error; // Re-throw the error for handling in your UI
+      if (error.code === 'auth/email-already-in-use') {
+        alert('User is already exist');
+      } 
+      else {
+        alert(error.message);
+      }
     }
   }
 
