@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "jsx": "react-jsx", // Ensure compatibility with React 17+ JSX runtime
+    "strict": true, // Enable strict type-checking
+    "esModuleInterop": true, // Allow default imports from CommonJS modules
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Enforce consistent casing in imports
+    "moduleResolution": "node", // Use Node.js module resolution
+    "resolveJsonModule": true, // Allow importing JSON files
+    "isolatedModules": true, // Ensure each file can be transpiled in isolation
+    "noEmit": true, // Prevent emitting compiled files
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "types": ["react", "react-dom", "node"], // Include type definitions for React and Node
+    "typeRoots": ["./node_modules/@types"], // Specify type declaration files
+    "lib": ["DOM", "DOM.Iterable", "ESNext"] // Include DOM and ESNext libraries
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

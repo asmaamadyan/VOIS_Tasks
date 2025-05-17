@@ -1,0 +1,61 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f8f0fa; /* Light lavender background */
+    border: 1px solid #d6b3e8; /* Mauve border */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d6b3e8; /* Mauve border */
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f3e8fc; /* Soft lavender background */
+    color: #5a3d7e; /* Muted mauve text */
+    resize: none;
+  }
+  
+  .textarea::placeholder {
+    color: #8e6ba8; /* Soft lavender placeholder text */
+  }
+  
+  .fileInput {
+    padding: 5px;
+    border: 1px solid #d6b3e8; /* Mauve border */
+    border-radius: 5px;
+    background-color: #f3e8fc; /* Soft lavender background */
+    color: #5a3d7e; /* Muted mauve text */
+    font-size: 0.9rem;
+  }
+  
+  .submitButton {
+    background-color: #a872bd; /* Mauve button */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #9c6bb5; /* Darker mauve hover */
+  }
+  
+  .submitButton:disabled {
+    background-color: #d6b3e8; /* Disabled mauve */
+    cursor: not-allowed;
+  }
+  
+  .successMessage {
+    color: #4caf50; /* Green for success */
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
+  }

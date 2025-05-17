@@ -1,0 +1,130 @@
+
+.dashboard-content {
+    padding: 2rem;
+    background-color: #f8f0fa; 
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 90%;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #ffffff; 
+    border: 1px solid #d6b3e8;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d6b3e8;
+  }
+  
+  
+  
+  .posts-section {
+      margin-top: 2rem;
+    }
+    
+    .posts-section h2 {
+        font-size: 1.8rem;
+        color: #6a4c93; 
+        margin-bottom: 1rem;
+    }
+    
+    .posts-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 90%;
+        margin-top: 3rem;
+    }
+    .user-details {
+        display: flex;
+        flex-direction: column;
+    }
+    .user-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #6a4c93; 
+      margin-bottom: -3px;
+    }
+  .user-email {
+    font-size: 1rem;
+    color: #5a3d7e; /* Muted mauve text */
+  }
+
+  .empty-state {
+    text-align: center;
+    color: #8e6ba8; 
+    font-size: 1.2rem;
+    background-color: #ffffff; 
+    padding: 2rem;
+    border: 1px solid #d6b3e8; 
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 3.5rem;
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+  
+  .page-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #d6b3e8; /* Mauve border */
+    background-color: #f8f0fa; /* Light lavender background */
+    color: #6a4c93; /* Deep mauve text */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .page-button:hover {
+    background-color: #d6b3e8; /* Mauve hover */
+  }
+  
+  .page-button.active {
+    background-color: #6a4c93; /* Deep mauve active */
+    color: white;
+    font-weight: bold;
+  }
+  .add-post-button {
+    display: flex;
+    float: inline-end;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #6a4c93; /* Deep mauve background */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+  }
+  
+  .add-post-button:hover {
+    background-color: #5a3d7e; 
+    transform: scale(1.1); 
+  }
+  
+  .add-post-button:active {
+    transform: scale(0.95); 
+  }
+  
+  .write-icon {
+    font-size: 1.5rem; 
+  }

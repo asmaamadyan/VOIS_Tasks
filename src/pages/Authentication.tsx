@@ -1,0 +1,89 @@
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import AuthForm from "../components/AuthForm";
+import { auth } from "../firebase/firebase";
+import { ActionFunction, redirect } from "react-router-dom";
+import { JSX } from "react";
+
+function Authentication() :JSX.Element {
+  return (
+    <>
+      <AuthForm />
+    </>
+  );
+}
+
+export default Authentication;
+
+export const action :ActionFunction = async({ request })=> {
+  const searchParams = new URL(request.url).searchParams;
+  const data = await request.formData();
+  const mode = searchParams.get("mode") || "login";
+  if (mode !== "login" && mode !== "signup") {
+    throw new Response(JSON.stringify({ message: "Unsupported mode" }), {
+      status: 422,
+    });
+  }
+  const authData = {
+    firstName: data.get("firstName") as string,
+    lastName: data.get("lastName") as string,
+    email: data.get("email")as string,
+    password: data.get("password")as string,
+  };
+  if (mode === "signup") {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        authData.email,
+        authData.password
+      );
+      const user = userCredential.user;
+      const fullName = `${authData.firstName} ${authData.lastName}`;
+      await updateProfile(user, {
+        displayName: fullName,
+      });
+
+      const token = await user.getIdToken();
+      localStorage.setItem("token", token);
+      console.log('logged in');
+      
+      return redirect("/dashboard");
+    } catch (error :any) {
+      if (error.code === 'auth/email-already-in-use') {
+        alert('User is already exist');
+      } 
+      else {
+        alert(error.message);
+      }
+    }
+  }
+
+  if (mode === "login") {
+    try {
+      const response = await signInWithEmailAndPassword(
+        auth,
+        authData.email,
+        authData.password
+      );
+      console.log(response);
+      const user = response.user;
+      const token = await user.getIdToken(); 
+      localStorage.setItem("token", token);
+      const expiration = new Date()
+      expiration.setHours(expiration.getHours()+1)
+      localStorage.setItem('expiration',expiration.toISOString())
+      return redirect("/dashboard");
+    } catch (error :any) {
+      if (error.code === 'auth/user-not-found') {
+        alert('No user found with this email.');
+      } else if (error.code === 'auth/wrong-password') {
+        alert('Incorrect password.');
+      } else {
+        alert(error.message);
+      }
+    }
+  }
+}
