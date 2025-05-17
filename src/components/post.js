@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { deletePostById, editPost } from "../firebase/api";
 import classes from "./post.module.css";
+import Button from "./Button";
+
 
 function Post({ posts, currentUserUid }) {
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -44,16 +46,16 @@ function Post({ posts, currentUserUid }) {
             </strong>
             {post.user?.uid === currentUserUid && (
               <div className={classes.menuWrapper}>
-                <button
-                  className={classes.menuButton}
+                <Button
+                  style={classes.menuButton}
                   onClick={() => toggleMenu(post.id)}
                 >
                   ⋯
-                </button>
+                </Button>
                 {openMenuId === post.id && (
                   <div className={classes.menu}>
-                    <button onClick={() => startEdit(post)}>Edit</button>
-                    <button onClick={() => handleDelete(post.id)}>Delete</button>
+                    <Button onClick={() => startEdit(post)}>Edit</Button>
+                    <Button onClick={() => handleDelete(post.id)}>Delete</Button>
                   </div>
                 )}
               </div>
@@ -68,18 +70,14 @@ function Post({ posts, currentUserUid }) {
                 className={classes.textarea}
               />
               <div className={classes.editButtons}>
-                <button
-                  className={classes.saveButton}
-                  onClick={() => handleEditSubmit(post.id)}
-                >
-                  Save
-                </button>
-                <button
-                  className={classes.cancelButton}
+                
+                <Button style ={classes.saveButton} onClick={() => handleEditSubmit(post.id)}>Save</Button>
+                <Button
+                  style={classes.cancelButton}
                   onClick={() => setEditingPostId(null)}
                 >
                   Cancel
-                </button>
+                </Button>
               </div>
             </div>
           ) : (

@@ -4,6 +4,7 @@ import classes from "./MainNavigation.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/auth";
 import { useEffect } from "react";
+import Button from "./Button";
 
 function MainNavigation() {
   const token = useRouteLoaderData("root");
@@ -89,7 +90,7 @@ function MainNavigation() {
           {token && (
             <li>
               <Form action="/logout" method="post">
-                <button styles={classes.button} onClick={handleLogout}>Logout</button>
+                <Button styles={classes.button} onClick={handleLogout}>Logout</Button>
               </Form>
             </li>
           )}

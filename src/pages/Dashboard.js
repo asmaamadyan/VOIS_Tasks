@@ -9,6 +9,7 @@ import placeholderAvatar from "../assets/placeholder-avatar.png"; // Import the 
 import "./Dashboard.css"; // Import the CSS file for styling
 import { useNavigate } from "react-router-dom";
 import { FaPen } from "react-icons/fa";
+import Button from "../components/Button";
 
 function DashboardPage() {
   const auth = getAuth();
@@ -49,9 +50,9 @@ const navigate = useNavigate()
         </div>
         <div className="posts-section">
           <h2 style={{ textAlign: "center" }}>Your Posts</h2>
-          <button className="add-post-button" onClick={handleAddPost}>
+          <Button style="add-post-button" onClick={handleAddPost}>
             <FaPen className="write-icon" />
-          </button>
+          </Button>
           {userPosts.length > 0 ? (
             <div className="posts-grid">
               <Post posts={userPosts} currentUserUid={user.uid} />

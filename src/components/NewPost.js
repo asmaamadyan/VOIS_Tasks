@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postsAction } from "../store/posts";
 import { getAuth } from "firebase/auth";
 import classes from "./NewPost.module.css"; 
+import Button from "./Button";
 
 function NewPost() {
   const [content, setContent] = useState("");
@@ -54,13 +55,13 @@ function NewPost() {
         onChange={(e) => setImageFile(e.target.files[0])}
         className={classes.fileInput}
       />
-      <button
+      <Button
         type="submit"
         disabled={loading}
-        className={classes.submitButton}
+        style={classes.submitButton}
       >
         {loading ? "Posting..." : "Post"}
-      </button>
+      </Button>
       {successMessage && (
         <p className={classes.successMessage}>{successMessage}</p>
       )}

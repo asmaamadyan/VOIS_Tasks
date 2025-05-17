@@ -4,6 +4,7 @@ import { fetchPosts } from "../firebase/api";
 import { postsAction } from "../store/posts"; 
 import Post from "./post";
 import { getAuth } from "firebase/auth";
+import Button from "./Button";
 
 function PostsList() {
   const{posts}=useSelector(state=>state.posts)
@@ -44,10 +45,10 @@ function PostsList() {
       </div>
       <div className="pagination">{
       pageNumbers.map((number)=>(
-        <button  key={number}
+        <Button  key={number}
         onClick={() => handlePageChange(number)}
-        className={`page-button ${currentPage === number ? "active" : ""}`}
-      >{number}</button>
+        style={`page-button ${currentPage === number ? "active" : ""}`}
+      >{number}</Button>
       ))}</div>
     </div>
   );

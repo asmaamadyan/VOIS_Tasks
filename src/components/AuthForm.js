@@ -2,6 +2,7 @@
 import { Form, Link, useActionData, useSearchParams } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
+import Button from "./Button";
 
 function AuthForm() {
 
@@ -48,7 +49,7 @@ function AuthForm() {
           <Link to={`?mode=${isLogin?'signup' : 'login'}`} >
           {isLogin ? 'Create a new user':'Login'}
           </Link>
-          <button>{isLogin ? 'Login' : 'Save'}</button>
+          <Button>{isLogin ? 'Login' : 'Save'}</Button>
         </div>
       </Form>
     </>
