@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { deletePostById, editPost } from "../firebase/api";
 import classes from "./post.module.css";
-import Button from "./Button";
-
+import PostCard from "./PostCard";
 
 function Post({ posts, currentUserUid }) {
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -39,59 +38,18 @@ function Post({ posts, currentUserUid }) {
   return (
     <div className={classes.container}>
       {posts.map((post) => (
-        <div className={classes.postCard} key={post.id}>
-          <div className={classes.header}>
-            <strong className={classes.author}>
-              {post.user?.displayName || post.user?.email || "Anonymous"}
-            </strong>
-            {post.user?.uid === currentUserUid && (
-              <div className={classes.menuWrapper}>
-                <Button
-                  style={classes.menuButton}
-                  onClick={() => toggleMenu(post.id)}
-                >
-                  ⋯
-                </Button>
-                {openMenuId === post.id && (
-                  <div className={classes.menu}>
-                    <Button onClick={() => startEdit(post)}>Edit</Button>
-                    <Button onClick={() => handleDelete(post.id)}>Delete</Button>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {editingPostId === post.id ? (
-            <div className={classes.editArea}>
-              <textarea
-                value={editedContent}
-                onChange={(e) => setEditedContent(e.target.value)}
-                className={classes.textarea}
-              />
-              <div className={classes.editButtons}>
-                
-                <Button style ={classes.saveButton} onClick={() => handleEditSubmit(post.id)}>Save</Button>
-                <Button
-                  style={classes.cancelButton}
-                  onClick={() => setEditingPostId(null)}
-                >
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div className={classes.content}>{post.content}</div>
-          )}
-
-          {post.imageUrl && (
-            <img src={post.imageUrl} alt="Post" className={classes.image} />
-          )}
-
-          <div className={classes.date}>
-            {new Date(post.createdAt).toLocaleString()}
-          </div>
-        </div>
+        <PostCard
+          key={post.id}
+          post={post}
+          currentUserUid={currentUserUid}
+          onEdit={startEdit}
+          onDelete={handleDelete}
+          onSave={handleEditSubmit}
+          onCancel={() => setEditingPostId(null)}
+          isEditing={editingPostId === post.id}
+          editedContent={editedContent}
+          setEditedContent={setEditedContent}
+        />
       ))}
     </div>
   );
